@@ -1,0 +1,250 @@
+
+body {
+    background-color: whitesmoke;
+    width: 80%; /* Réduit la largeur à 80% de la page */
+    max-width: 1200px; /* Largeur max pour ne pas être trop large sur grand écran */
+    margin: 0 auto; /* Centre le contenu horizontalement */
+    text-align: center;
+    min-width: 320px;
+}
+header {
+    display: flex;
+    justify-content: space-between; /* Espacement entre les groupes */
+    align-items: center; /* Alignement vertical */
+    padding: 10px 20px;
+    background-color: #423f3f; /* Couleur de fond */
+}
+
+nav {
+    display: flex;
+    justify-content: space-between; /* Assure un espacement égal entre les groupes */
+    width: 100%; /* Prendre toute la largeur */
+}
+
+.un {
+    display: flex;
+    gap: 15px; /* Espacement entre les liens du groupe gauche */
+}
+
+.deux {
+    display: flex;
+    gap: 15px; /* Espacement entre les liens du groupe droit */
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column; /* Sur petits écrans, les liens sont en colonne */
+        align-items: flex-start; /* Aligner à gauche sur petits écrans */
+    }
+
+    .gauche, .droite {
+        width: 100%; /* Assurer que chaque groupe prenne toute la largeur */
+    }
+}
+
+a {
+    text-decoration: none;
+    color: aliceblue;
+    font-weight: bold;
+}
+
+a:hover {
+    color: coral; /* Changement de couleur au survol */
+}
+
+strong{
+    text-align: center;
+    color: coral;
+}
+.trois {
+    display: flex;  /* Aligner les éléments sur une ligne */
+    gap: 7px;  /* Espacement entre les blocs */
+    flex-wrap: wrap;  /* Permettre le retour à la ligne si l'écran est petit */
+    /* justify-content: center; /* Centrer les éléments */
+    margin-top: 5px;
+    /* margin-right: 400px;*/
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement (si besoin) */
+}
+
+/* Styles des <h6> dans un bocal */
+.box {
+    border: 2px solid #333; /* Bordure */
+    padding: 10px 15px; /* Espace interne */
+    background-color: #f0f0f0; /* Couleur de fond */
+    text-align: center; /* Centrer le texte */
+    border-radius: 8px; /* Coins arrondis */
+    font-size: 8px; /* Taille du texte */
+    box-align: center;
+}
+form{
+    color: coral;
+}
+/* Aligner et gérer l'intérieur des fieldsets */
+.quatre {
+    color: black;
+    display: flex;
+    flex-wrap: wrap; /* Permet de retourner les éléments à la ligne si nécessaire */
+    justify-content: center; /* Centre les éléments horizontalement */
+    gap: 15px; /* Espacement entre les éléments */
+    width: 100%; /* Prend toute la largeur disponible */
+}
+
+/* Aligner les labels à l'intérieur de .quatre */
+.quatre label {
+    display: flex;
+    align-items: center; /* Aligne les éléments en ligne (case + texte) */
+    gap: 8px; /* Espace entre la case et le texte */
+    width: auto; /* Ajuste la largeur selon les besoins */
+    text-align: left; /* Aligne le texte à gauche */
+}
+
+/* Pour les cases à cocher et les boutons radio */
+.quatre input[type="checkbox"],
+.quatre input[type="radio"] {
+    width: auto; /* Pas de largeur spécifique */
+    height: auto; /* Ajuste la taille */
+}
+
+/* Légende des fieldsets */
+legend {
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    display: block; /* Empêche le décalage */
+}
+.form-container {
+    width: 400px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centre le texte à l'intérieur */
+    margin: auto; /* Centre le formulaire */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre les éléments à l'intérieur */
+}
+
+/* Style des groupes de champs */
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre les éléments à l'intérieur */
+}
+
+/* Style des labels et inputs */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input, select, textarea {
+    width: 80%; /* Ajuste la largeur des champs */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: block; /* Permet un bon alignement */
+    margin: auto; /* Centre horizontalement */
+}
+
+/* Style des fieldsets */
+fieldset {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 80%;
+    margin: auto;  /* Centre le fieldset */
+    text-align: center; /* Centre le texte */
+}
+
+legend {
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    display: block; /* Empêche le décalage */
+}
+
+/* Style des boutons */
+.form-buttons {
+    display: flex;
+    gap: 10px; /* Réduit l'espace entre les boutons */
+    width: 90%;
+    justify-content: center; /* Centre les boutons */
+    margin: auto;
+    
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button[type="submit"] {
+    background-color: coral;
+    color: white;
+}
+
+button[type="reset"] {
+    background-color: #dc3545;
+    color: white;
+}
+footer {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between; /* Espacement entre le logo et le menu */
+    align-items: center; /* Alignement vertical */
+    padding: 10px 20px;
+    background-color: #423f3f; /* Couleur de fond */
+}
+#topButton {
+    display: none; /* Caché par défaut */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: coral;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+#topButton:hover {
+    background-color: coral;
+}
+
+.menu-burger {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+    
+}
+
+@media (max-width: 768px) {
+    nav {
+        display: none; /* Cache le menu par défaut sur mobile */
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        background-color: #423f3f;
+        padding: 10px;
+    }
+
+    .menu-burger {
+        display: block; /* Affiche l'icône du menu burger */
+    }
+
+    .nav-active {
+        display: flex !important; /* Affiche le menu lorsqu'il est activé */
+    }
+}
