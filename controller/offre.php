@@ -6,26 +6,26 @@
     <link rel="stylesheet" href="../vue/Inscription.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>monsite</title>
-    <script src="java.js" defer></script>
+    <script src="../vue/java.js" defer></script>
 </head>
 <body>
     <h1><strong>Lebonplan</strong></h1>
     <header> 
-        <div class="menu-burger" onclick="toggleMenu()">☰</div> <!-- Menu Burger -->
-        <nav> 
-            <div class="un">
-                <a href="">Accueil</a> <br> 
-                <a href="entreprise.php">Entreprise</a> 
-                <a href="">Offres</a> <br>
-                <a href="../vue/mention.html">Mentions legales</a> <br>
-                <a href="">Contact</a> <br>
-            </div>
-            <div class="deux">
-                <a href="">Connexion</a>
-                <a href="../index.html">S'inscrire</a>
-            </div>
-        </nav>
-    </header>
+    <div class="menu-burger" onclick="toggleMenu()">☰</div> <!-- Menu Burger -->
+    <nav class="nav-main"> 
+        <div class="un">
+            <a href="">Accueil</a>
+            <a href="entreprise.php">Entreprise</a> 
+            <a href="offre.php">Offres</a>
+            <a href="../vue/mention.html">Mentions légales</a>
+            <a href="">Contact</a>
+        </div>
+        <div class="deux">
+            <a href="">Connexion</a>
+            <a href="">S'inscrire</a>
+        </div>
+    </nav>
+</header>
     <section> 
         <h1><strong>postuler a cette offre de stage</strong></h1>
         <p>
@@ -49,8 +49,9 @@
 if (isset($_SESSION['errors'])) {
     foreach ($_SESSION['errors'] as $error) {
         echo "<p style='color: red;'>" . htmlspecialchars($error) . "</p>";
+        unset($_SESSION['errors']);
     }
-    unset($_SESSION['errors']); // Effacer les erreurs après affichage
+     
 }
 ?>
         <form action="controller.php" method="POST" enctype="multipart/form-data">

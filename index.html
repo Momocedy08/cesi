@@ -5,28 +5,28 @@
     <link rel="stylesheet" href="vue/Inscription.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="java.js" defer></script>
+    <script src="vue/java.js" defer></script>
 </head>
 <body>
     <h1><strong>Lebonplan</strong></h1>
     <header> 
         <div class="menu-burger" onclick="toggleMenu()">☰</div> <!-- Menu Burger -->
-        <nav> 
+        <nav class="nav-main"> 
             <div class="un">
-                <a href="">Accueil</a> 
-                <a href="controller/entreprise.php"> Entreprise</a>
-                <a href="controller/offre.php">Offres</a>
-                <a href="vue/mention.html">Mentions legales</a>
+                <a href="">Accueil</a>
+                <a href="">Entreprise</a> 
+                <a href="">Offres</a>
+                <a href="">Mentions légales</a>
                 <a href="">Contact</a>
             </div>
             <div class="deux">
-                <a href="">Connexion</a>
-                <a href="index.html">S'inscrire</a>
+                <a href="vue/connnexion.php">Connexion</a>
+                <a href="">S'inscrire</a>
             </div>
         </nav>
     </header>
     <section class="form-container">
-        <form action="">
+        <form action="controller/inscription.php" method="post">
             <div class="form-group">
                 <label for="civilite">CIVILITÉ</label>
                 <select name="civilite" id="civilite">
@@ -38,33 +38,23 @@
     
             <div class="form-group">
                 <label for="nom">NOM</label>
-                <input type="text" id="nom" required>
+                <input type="text" name="nom" id="nom" required>
     
                 <label for="prenom">PRÉNOM</label>
-                <input type="text" id="prenom" required>
+                <input type="text" name="prenom" id="prenom" required>
     
                 <label for="mail">COURRIEL</label>
-                <input type="email" id="mail" required>
+                <input type="email" name="mail" id="mail" required>
 
                 <label for="date">DATE DE NAISSANCE</label>
                 <input type="date" id="date" required>
+
+                <label for="mail">MOT DE PASS</label>
+                <input type="password" name="mdp" id="mdp" required>
+
+                <label for="mail">CONFIRMER LE MOT DE PASS</label>
+                <input type="password" name="confirme" id="confirme" required>
             </div>
-    
-            <fieldset class="form-group">
-                <legend>À PROPOS DE VOUS</legend>
-                <div class="quatre">
-                    <label><input type="checkbox" name="permisB"> Permis B</label>
-                    <label><input type="checkbox" name="vehicule"> Véhiculé</label>
-                    <label><input type="checkbox" name="certification"> Certification (Microsoft, Cisco...)</label>
-                </div>
-            </fieldset>
-            <fieldset class="form-group">
-                <legend>ÊTES-VOUS EN SITUATION DHANDICAPE ?</legend>
-                <div class="quatre">
-                    <label class="quatre"><input type="radio" name="majeur" value="oui"> Oui</label>
-                    <label class="quatre"><input type="radio" name="majeur" value="non"> Non</label>
-                </div>
-            </fieldset>
             <div class="form-buttons">
                 <button type="submit">ENVOYER</button>
                 <button type="reset">SUPRIMER</button>

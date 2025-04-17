@@ -7,10 +7,10 @@ function convertirEnMajuscules(id) {
 }
 
 // Appliquer la conversion aux champs NOM et PRÉNOM
-convertirEnMajuscules("nom");
-convertirEnMajuscules("prenom");
+convertirEnMajuscules("no");
+convertirEnMajuscules("preno");
 
-// Sélectionne le bouton
+// Sélectionne le bouto
 const topButton = document.getElementById("topButton");
 
 // Afficher le bouton lorsque l'utilisateur descend
@@ -27,6 +27,7 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+
 function toggleMenu() {
-    document.querySelector("nav").classList.toggle("nav-active");
+    document.querySelector(".nav-main").classList.toggle("nav-active");
 }

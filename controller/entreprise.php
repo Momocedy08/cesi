@@ -1,154 +1,185 @@
 <?php
 session_start();
+include '../modele/pd.php';
 
-// Exemple de liste d'entreprises
-$entreprises = [
-    ["nom" => "Entreprise 1", "description" => "Description de l'entreprise 1"],
-    ["nom" => "Entreprise 2", "description" => "Description de l'entreprise 2"],
-    ["nom" => "Entreprise 3", "description" => "Description de l'entreprise 3"],
-    ["nom" => "Entreprise 4", "description" => "Description de l'entreprise 4"],
-    ["nom" => "Entreprise 5", "description" => "Description de l'entreprise 5"],
-    ["nom" => "Entreprise 6", "description" => "Description de l'entreprise 6"],
-    ["nom" => "Entreprise 7", "description" => "Description de l'entreprise 7"],
-    ["nom" => "Entreprise 8", "description" => "Description de l'entreprise 8"],
-    ["nom" => "Entreprise 9", "description" => "Description de l'entreprise 9"],
-    ["nom" => "Entreprise 10", "description" => "Description de l'entreprise 10"],
-    ["nom" => "Entreprise 11", "description" => "Description de l'entreprise 11"],
-    ["nom" => "Entreprise 12", "description" => "Description de l'entreprise 12"],
-    ["nom" => "Entreprise 13", "description" => "Description de l'entreprise 12"],
-    ["nom" => "Entreprise 14", "description" => "Description de l'entreprise 12"],
-    ["nom" => "Entreprise 15", "description" => "Description de l'entreprise 12"],
-    ["nom" => "Entreprise 16", "description" => "Description de l'entreprise 12"],
-    ["nom" => "Entreprise 17", "description" => "Description de l'entreprise 12"],
-    ["nom" => "Entreprise 18", "description" => "Description de l'entreprise 12"],
-    ["nom" => "Entreprise 19", "description" => "Description de l'entreprise 12"],
-    ["nom" => "Entreprise 20", "description" => "Description de l'entreprise 12"],
-    // Ajoute d'autres entreprises si nécessaire
-];
+$parPage = 10;
+$page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
+$offset = ($page - 1) * $parPage;
 
-// Définir le nombre d'éléments par page
-$limit = 10;
+$totalQuery = $pdo->query("SELECT COUNT(*) FROM entreprise");
+$total = $totalQuery->fetchColumn();
+$pages = ceil($total / $parPage);
 
-// Obtenir la page actuelle (si elle est définie, sinon page 1)
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-
-// Vérifier si la page est valide
-$totalEntreprises = count($entreprises);
-$totalPages = ceil($totalEntreprises / $limit);
-if ($page < 1 || $page > $totalPages) {
-    header("Location: entreprise.php?page=1"); // Rediriger vers la première page si la page demandée n'est pas valide
-    exit();
-}
-
-// Calculer l'offset (la position de départ pour la pagination)
-$offset = ($page - 1) * $limit;
-
-// Extraire les entreprises à afficher sur cette page
-$entreprisesPage = array_slice($entreprises, $offset, $limit);
+$stmt = $pdo->prepare("SELECT * FROM entreprise LIMIT :limit OFFSET :offset");
+$stmt->bindValue(':limit', $parPage, PDO::PARAM_INT);
+$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+$stmt->execute();
+$entreprises = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="Inscription.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des entreprises</title>
-    <link rel="stylesheet" href="../vue/Inscription.css">
+    <link rel="stylesheet" href="/propro/vue/inscription.css">
+<script src="/propro/vue/java.js" defer></script>
     <style>
-        .pagination a {
-            margin: 0 5px;
-            padding: 5px 10px;
-            text-decoration: none;
-            color: #007bff;
+        .entreprises-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
         }
 
-        .pagination a.active {
-            background-color: #007bff;
-            color: white;
+        .entreprise-card {
+            width: 100%;
+            max-width: 500px;
+            background-color: #f0f0f0;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 2px solid #333;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .pagination {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            color: aliceblue;
+            background-color: #423f3f;
+            padding: 8px 14px;
+            border-radius: 5px;
             font-weight: bold;
         }
 
         .pagination a:hover {
-            background-color: #ddd;
+            background-color: coral;
+            color: white;
         }
 
-        .pagination span {
-            margin: 0 5px;
-            padding: 5px 10px;
+        .pagination a.active {
+            background-color: coral;
+            color: white;
+            font-weight: bold;
+        }/* Styles pour la barre de navigation */
+    header {
+        display: flex;
+        justify-content: space-between; /* Espacement entre les groupes */
+        align-items: center; /* Alignement vertical */
+        padding: 10px 20px;
+        background-color: #423f3f; /* Couleur de fond */
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between; /* Assure un espacement égal entre les groupes */
+        width: 100%; /* Prendre toute la largeur */
+    }
+
+    .un {
+        display: flex;
+        gap: 15px; /* Espacement entre les liens du groupe gauche */
+    }
+
+    .deux {
+        display: flex;
+        gap: 15px; /* Espacement entre les liens du groupe droit */
+    }
+
+    a {
+        text-decoration: none;
+        color: aliceblue;
+        font-weight: bold;
+    }
+
+    a:hover {
+        color: coral; /* Changement de couleur au survol */
+    }
+
+    .menu-burger {
+        display: none;
+        font-size: 30px;
+        cursor: pointer;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        nav {
+            display: none; /* Cache le menu par défaut sur mobile */
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            background-color: #423f3f;
+            padding: 10px;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
+        .menu-burger {
+            display: block; /* Affiche l'icône du menu burger */
         }
 
-        li {
-            margin: 10px 0;
+        .nav-active {
+            display: flex !important; /* Affiche le menu lorsqu'il est activé */
         }
+
+        .un, .deux {
+            width: 100%; /* Les liens prennent toute la largeur */
+            flex-direction: column;
+        }
+
+        a {
+            padding: 10px 0;
+            text-align: left; /* Aligne les liens à gauche sur mobile */
+        }
+    }
     </style>
 </head>
 <body>
 <h1><strong>Lebonplan</strong></h1>
-    <header> 
-        <div class="menu-burger" onclick="toggleMenu()">☰</div> <!-- Menu Burger -->
-        <nav> 
-            <div class="un">
-                <a href="">Accueil</a> <br> 
-                <a href="entreprise.php">Entreprise</a> 
-                <a href="offre.php">Offres</a> <br>
-                <a href="../vue/mention.html">Mentions legales</a> <br>
-                <a href="">Contact</a> <br>
+<header> 
+    <div class="menu-burger" onclick="toggleMenu()">☰</div> <!-- Menu Burger -->
+    <nav class="nav-main"> 
+        <div class="un">
+            <a href="">Accueil</a>
+            <a href="entreprise.php">Entreprise</a> 
+            <a href="offre.php">Offres</a>
+            <a href="../vue/mention.html">Mentions légales</a>
+            <a href="">Contact</a>
+        </div>
+        <div class="deux">
+            <a href="">Connexion</a>
+            <a href="">S'inscrire</a>
+        </div>
+    </nav>
+</header>
+
+    <h1><strong>Liste des entreprises</strong></h1>
+
+    <div class="entreprises-container">
+        <?php foreach ($entreprises as $entreprise): ?>
+            <div class="entreprise-card">
+                <?= htmlspecialchars($entreprise['NOM']) ?>
             </div>
-            <div class="deux">
-                <a href="">Connexion</a>
-                <a href="../index.html">S'inscrire</a>
-            </div>
-        </nav>
-    </header>
-    <h1>Liste des entreprises</h1>
-    <ul>
-        <?php foreach ($entreprisesPage as $entreprise): ?>
-            <li>
-                <h2><?php echo htmlspecialchars($entreprise['nom']); ?></h2>
-                <p><?php echo htmlspecialchars($entreprise['description']); ?></p>
-            </li>
         <?php endforeach; ?>
-    </ul>
+    </div>
 
-    <!-- Pagination -->
     <div class="pagination">
-        <?php if ($page > 1): ?>
-            <a href="entreprise.php?page=<?php echo $page - 1; ?>">Précédent</a>
-        <?php else: ?>
-            <span>Précédent</span>
-        <?php endif; ?>
-
-        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-            <a href="entreprise.php?page=<?php echo $i; ?>" class="<?php echo $i == $page ? 'active' : ''; ?>">
-                <?php echo $i; ?>
+        <?php for ($i = 1; $i <= $pages; $i++): ?>
+            <a href="?page=<?= $i ?>" class="<?= $i == $page ? 'active' : '' ?>">
+                Page <?= $i ?>
             </a>
         <?php endfor; ?>
-
-        <?php if ($page < $totalPages): ?>
-            <a href="entreprise.php?page=<?php echo $page + 1; ?>">Suivant</a>
-        <?php else: ?>
-            <span>Suivant</span>
-        <?php endif; ?>
     </div>
-    <footer>
-        <nav> 
-            <div class="un">
-                <a href="">Twiter</a>
-                <a href="">facebook</a> 
-                <a href=""> Instagram</a>
-            </div>
-            <div class="deux">
-                <a href="">Linkdin</a>
-                <a href="">Apec</a>
-            </div>
-        </nav>
-    </footer>
-    <button id="topButton" onclick="scrollToTop()">⬆ Haut</button>
+
 </body>
 </html>

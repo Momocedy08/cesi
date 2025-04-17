@@ -36,6 +36,9 @@ nav {
         flex-direction: column; /* Sur petits écrans, les liens sont en colonne */
         align-items: flex-start; /* Aligner à gauche sur petits écrans */
     }
+    .nav-active {
+        display: flex !important;
+    }
 
     .gauche, .droite {
         width: 100%; /* Assurer que chaque groupe prenne toute la largeur */
